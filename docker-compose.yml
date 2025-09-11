@@ -1,0 +1,9 @@
+services:
+
+  mysql:
+    image: mysql:8.0.30-debian
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=manager_subscription
+    ports:
+      - 3306:3306
