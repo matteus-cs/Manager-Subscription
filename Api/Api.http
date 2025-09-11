@@ -1,6 +1,19 @@
 @Api_HostAddress = http://localhost:5116
 
-GET {{Api_HostAddress}}/weatherforecast/
-Accept: application/json
+POST {{Api_HostAddress}}/api/customers
+Content-Type: application/json
+
+{
+    "name": "John Doe",
+    "cpf": "000.000.000-00",
+    "email": "john@email.com",
+    "address": {
+        "street": "Wonderful Street",
+        "neighborhood": "Wonderful Neighborhood",
+        "city": "Wonderful City",
+        "state": "Wonderful State"
+    },
+    "phone": "+55 (11) 91234-5678"
+}
 
 ###
