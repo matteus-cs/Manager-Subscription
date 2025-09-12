@@ -1,6 +1,7 @@
 using Api.Database;
 using Api.Dtos;
 using Api.Entities;
+using Api.Gateways;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,9 +9,10 @@ namespace Api.Controllers;
 
 [Route("api/customers")]
 [ApiController]
-public class CustomerController(ManagerSubscriptionDb managerSubscriptionDb) : ControllerBase
+public class CustomerController(ManagerSubscriptionDb managerSubscriptionDb, IPayment payment) : ControllerBase
 {
     private ManagerSubscriptionDb _managerSubscriptionDb = managerSubscriptionDb;
+    private IPayment _paymentGateway = payment;
 
     [HttpPost]
     public async Task<ActionResult> Create([FromBody] CreateCustomerDto createCustomerDto)
@@ -20,10 +22,7 @@ public class CustomerController(ManagerSubscriptionDb managerSubscriptionDb) : C
         {
             return BadRequest(new {Message = "Customer already exists"});
         }
-        if (!ModelState.IsValid)
-        {
-            return BadRequest();
-        }
+
         var customer = new Customer
         {
             Name = createCustomerDto.Name,
@@ -38,10 +37,13 @@ public class CustomerController(ManagerSubscriptionDb managerSubscriptionDb) : C
             },
             Phone = createCustomerDto.Phone
         };
+        string customerGatewayId = await _paymentGateway.CreateCustomerAsync(customer);
+
+        customer.PaymentGatewayId = customerGatewayId;
 
         await _managerSubscriptionDb.Customers.AddAsync(customer);
         await _managerSubscriptionDb.SaveChangesAsync();
 
-        return Created("", new { Id = customer.Id });
+        return Created($"/{customer.Id}", new { Id = customer.Id });
     }
 }
