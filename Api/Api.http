@@ -17,3 +17,14 @@ Content-Type: application/json
 }
 
 ###
+
+POST  {{Api_HostAddress}}/api/plans
+Content-Type: application/json
+
+{
+    "name": "Premium academy",
+    "description": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.",
+    "monthlyPrice": 55.99
+}
+
+###
