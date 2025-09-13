@@ -7,4 +7,14 @@ public class ManagerSubscriptionDb(DbContextOptions options) : DbContext(options
 {
     public DbSet<Address> Addresses  { get; set; }
     public DbSet<Customer> Customers { get; set; }
+    public DbSet<Plan> Plans { get; set; }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+
+        modelBuilder.Entity<Plan>()
+            .Property(e => e.MonthlyPrice)
+            .HasColumnType("decimal(6,2)");
+    }
 }
