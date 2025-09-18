@@ -8,6 +8,7 @@ public class ManagerSubscriptionDb(DbContextOptions options) : DbContext(options
     public DbSet<Address> Addresses  { get; set; }
     public DbSet<Customer> Customers { get; set; }
     public DbSet<Plan> Plans { get; set; }
+    public DbSet<Subscription> Subscriptions { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
