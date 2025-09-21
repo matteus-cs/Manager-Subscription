@@ -1,6 +1,7 @@
 using Api.Database;
 using Api.Dtos;
 using Api.Entities;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -23,6 +24,11 @@ public class SubscriptionController(ManagerSubscriptionDb managerSubscriptionDb)
         {
             return NotFound(new {message = "Plan not found"});
         }
+
+        if (
+            await _db.Subscriptions.AnyAsync(s => s.CustomerId == createSubscriptionDto.CustomerId
+            && s.PlanId == createSubscriptionDto.PlanId ))
+            return UnprocessableEntity(new {message = "User already subscribed to this plan"});
 
         var subscription = new Subscription
         {
