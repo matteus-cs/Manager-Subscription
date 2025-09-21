@@ -16,7 +16,7 @@ public record CreateSubscriptionDto
     bool IsActive,
 
     [Required]
-    byte DueDate,
+    byte BillingDay,
 
     [Required]
     Guid CustomerId,

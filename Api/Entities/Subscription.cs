@@ -10,7 +10,7 @@ public class Subscription
 
     public bool IsActive { get; set; }
 
-    public byte DueDate { get; set; }
+    public byte BillingDay { get; set; }
 
     public Customer Customer { get; set; } = default!;
 

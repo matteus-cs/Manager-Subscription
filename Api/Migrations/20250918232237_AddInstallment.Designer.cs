@@ -4,6 +4,7 @@ using Api.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Api.Migrations
 {
     [DbContext(typeof(ManagerSubscriptionDb))]
-    partial class ManagerSubscriptionDbModelSnapshot : ModelSnapshot
+    [Migration("20250918232237_AddInstallment")]
+    partial class AddInstallment
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -137,11 +140,11 @@ namespace Api.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
 
-                    b.Property<byte>("BillingDay")
-                        .HasColumnType("tinyint unsigned");
-
                     b.Property<Guid>("CustomerId")
                         .HasColumnType("char(36)");
+
+                    b.Property<byte>("DueDate")
+                        .HasColumnType("tinyint unsigned");
 
                     b.Property<DateOnly>("EndDate")
                         .HasColumnType("date");
