@@ -12,11 +12,11 @@ public class Subscription
 
     public byte BillingDay { get; set; }
 
-    public Customer Customer { get; set; } = default!;
+    public Customer? Customer { get; set; }
 
     public Guid CustomerId { get; set; }
 
-    public Plan Plan { get; set; } = default!;
+    public Plan? Plan { get; set; }
 
     public Guid PlanId { get; set; }
 }

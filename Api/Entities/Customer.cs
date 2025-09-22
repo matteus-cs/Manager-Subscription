@@ -15,4 +15,6 @@ public class Customer
     public Address Address { get; set; } = default!;
 
     public string? PaymentGatewayId { get; set; } = String.Empty;
+
+    public List<Subscription>? Subscriptions { get; set; }
 }
