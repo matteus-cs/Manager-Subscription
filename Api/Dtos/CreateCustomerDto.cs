@@ -22,7 +22,11 @@ public record CreateCustomerDto
     string Phone,
 
     [Required]
-    CreateAddressDto Address
+    CreateAddressDto Address,
+
+    [Required]
+    [MinLength(8)]
+    string Password
 );
 
 public record CreateAddressDto

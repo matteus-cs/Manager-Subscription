@@ -7,6 +7,7 @@ Content-Type: application/json
     "name": "John Doe",
     "cpf": "249.715.637-92",
     "email": "john@email.com",
+    "password": "strongerPassword",
     "address": {
         "street": "Wonderful Street",
         "neighborhood": "Wonderful Neighborhood",
@@ -44,3 +45,13 @@ Content-Type: application/json
 ### 
 
 GET {{Api_HostAddress}}/api/subscriptions/b829b636-5746-4f15-8bfb-eb545ed6ff51
+
+###
+
+POST {{Api_HostAddress}}/api/customers/login
+Content-Type: application/json
+
+{
+    "email": "john@email.com",
+    "password": "strongerPassword"
+}

@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Identity;
+
 namespace Api.Entities;
 
 public class Customer
@@ -13,6 +15,8 @@ public class Customer
     public string Phone { get; set; } = String.Empty;
 
     public Address Address { get; set; } = default!;
+
+    public string Password { get; set; } = string.Empty;
 
     public string? PaymentGatewayId { get; set; } = String.Empty;
 
