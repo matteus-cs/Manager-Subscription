@@ -37,14 +37,15 @@ Content-Type: application/json
     "StartDate": "2025-09-18",
     "EndDate": "2026-03-18",
     "IsActive": true,
-    "DueDate": 20,
-    "CustomerId": "b829b636-5746-4f15-8bfb-eb545ed6ff51",
-    "PlanId": "a5a57fe2-33d5-4eaa-876e-f77d42cc9daa"
+    "BillingDay": 20,
+    "CustomerId": "045bac2b-1567-4923-af5a-26044bd6964f",
+    "PlanId": "711b7413-4e43-43b2-8873-50844d2b239f"
 }
 
 ### 
 
-GET {{Api_HostAddress}}/api/subscriptions/b829b636-5746-4f15-8bfb-eb545ed6ff51
+GET {{Api_HostAddress}}/api/customers/subscriptions
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIwNDViYWMyYi0xNTY3LTQ5MjMtYWY1YS0yNjA0NGJkNjk2NGYiLCJleHAiOjE3NTg5MjUwNTV9.vLmBG0fYfdBC6himPpY74cscLtFOLaV48qF0nHt2dfM
 
 ###
 

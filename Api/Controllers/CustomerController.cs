@@ -6,6 +6,7 @@ using Api.Database;
 using Api.Dtos;
 using Api.Entities;
 using Api.Gateways;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -70,6 +71,34 @@ public class CustomerController(ManagerSubscriptionDb managerSubscriptionDb, IPa
         if (isMatched == PasswordVerificationResult.Failed)
             return BadRequest(responseToInvalidEmailOrPassword);
         return Ok(new { token = GenerateToken(customer.Id) });
+    }
+
+    [Authorize]
+    [HttpGet("subscriptions")]
+    public async Task<ActionResult> GetSubscriptions([FromRoute] Guid id)
+    {
+        var customerId = User.Claims.First().Value;
+        var customer = await _managerSubscriptionDb.Customers
+            .Include(c => c.Subscriptions)
+            .FirstOrDefaultAsync(c => c.Id == new Guid(customerId));
+        
+        if (customer is null)
+            return NotFound(new {message = "Customer not found"});
+
+        if (customer.Subscriptions is null)
+            return UnprocessableEntity(new {message = "User has no subscriptions"});
+        return Ok(new {
+            customerId = customer.Id,
+            subscriptions = customer.Subscriptions.Select(s => new SubscriptionDto
+            (
+                s.StartDate,
+                s.EndDate,
+                s.IsActive,
+                s.BillingDay,
+                s.PlanId,
+                null
+            ))
+        });
     }
 
     private string GenerateToken(Guid customerId)

@@ -16,6 +16,7 @@ public record CreateSubscriptionDto
     bool IsActive,
 
     [Required]
+    [Range(1, 31)]
     byte BillingDay,
 
     [Required]

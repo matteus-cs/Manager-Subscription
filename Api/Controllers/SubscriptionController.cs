@@ -1,9 +1,13 @@
+using System.Security.Claims;
 using Api.Database;
 using Api.Dtos;
 using Api.Entities;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.JsonWebTokens;
 
 namespace Api.Controllers;
 
@@ -12,32 +16,6 @@ namespace Api.Controllers;
 public class SubscriptionController(ManagerSubscriptionDb managerSubscriptionDb) : ControllerBase
 {
     private ManagerSubscriptionDb _db = managerSubscriptionDb;
-
-    [HttpGet("{id}")]
-    public async Task<ActionResult> GetSubscriptionByCustomerId([FromRoute] Guid id)
-    {
-        var customer = await _db.Customers
-            .Include(c => c.Subscriptions)
-            .FirstOrDefaultAsync(c => c.Id == id);
-        // var subscription = await _db.Subscriptions.FirstOrDefaultAsync(s => s.CustomerId == id);
-        if (customer is null)
-            return NotFound(new {message = "Customer not found"});
-
-        if (customer.Subscriptions is null)
-            return UnprocessableEntity(new {message = "User has no subscriptions"});
-        return Ok(new {
-            customerId = customer.Id,
-            subscriptions = customer.Subscriptions.Select(s => new SubscriptionDto
-            (
-                s.StartDate,
-                s.EndDate,
-                s.IsActive,
-                s.BillingDay,
-                s.PlanId,
-                null
-            ))
-        });
-    }
 
     [HttpPost()]
     public async Task<ActionResult> Create([FromBody] CreateSubscriptionDto createSubscriptionDto)
