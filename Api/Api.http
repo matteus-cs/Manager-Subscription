@@ -56,3 +56,14 @@ Content-Type: application/json
     "email": "john@email.com",
     "password": "strongerPassword"
 }
+
+###
+
+POST {{Api_HostAddress}}/api/admins
+Content-Type: application/json
+
+{
+    "name": "John admin",
+    "email": "admin@email.com",
+    "password": "strongerPassword"
+}
