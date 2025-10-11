@@ -32,6 +32,7 @@ Content-Type: application/json
 
 POST  {{Api_HostAddress}}/api/subscriptions
 Content-Type: application/json
+Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIwNDViYWMyYi0xNTY3LTQ5MjMtYWY1YS0yNjA0NGJkNjk2NGYiLCJleHAiOjE3NjAwMTgwMTB9.vr2uOK6bjbpxyg-HIgYpK1Ibcg50pbGTo2aZEl_QBYQ
 
 {
     "StartDate": "2025-09-18",
@@ -64,6 +65,15 @@ Content-Type: application/json
 
 {
     "name": "John admin",
+    "email": "admin@email.com",
+    "password": "strongerPassword"
+}
+
+###
+POST {{Api_HostAddress}}/api/admins/login
+Content-Type: application/json
+
+{
     "email": "admin@email.com",
     "password": "strongerPassword"
 }

@@ -1,6 +1,7 @@
 using Api.Database;
 using Api.Dtos;
 using Api.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers;
@@ -12,6 +13,7 @@ public class PlanController(ManagerSubscriptionDb managerSubscriptionDb) : Contr
     private readonly ManagerSubscriptionDb _db = managerSubscriptionDb;
 
 
+    [Authorize(Roles = "Admin")]
     [HttpPost]
     public async Task<ActionResult> Create([FromBody] CreatePlanDto createPlanDto)
     {

@@ -25,6 +25,7 @@ public class CustomerController(ManagerSubscriptionDb managerSubscriptionDb, IPa
 
     private readonly PasswordHasher<object> _passwordHasher = new();
 
+    [Authorize(Roles = "Admin")]
     [HttpPost]
     public async Task<ActionResult> Create([FromBody] CreateCustomerDto createCustomerDto)
     {

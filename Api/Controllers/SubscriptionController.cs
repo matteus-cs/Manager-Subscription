@@ -1,13 +1,9 @@
-using System.Security.Claims;
 using Api.Database;
 using Api.Dtos;
 using Api.Entities;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.JsonWebTokens;
 
 namespace Api.Controllers;
 
@@ -17,6 +13,7 @@ public class SubscriptionController(ManagerSubscriptionDb managerSubscriptionDb)
 {
     private ManagerSubscriptionDb _db = managerSubscriptionDb;
 
+    [Authorize(Roles = "Admin")]
     [HttpPost()]
     public async Task<ActionResult> Create([FromBody] CreateSubscriptionDto createSubscriptionDto)
     {
